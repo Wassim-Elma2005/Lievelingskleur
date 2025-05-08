@@ -8,7 +8,15 @@ import (
 )
 
 func main() {
-	file, _ := os.ReadFile("kleuren.json")
+	//file, _ := os.ReadFile("kleuren.json")
+	// _ Negeer eventuele fouten. programma stopt gewoon als het crasht
+	//betere versie
+	file, err := os.ReadFile("Kleuren.json")
+	if err != nill {
+		fmt.Println("Fout bij het lezen van kleuren.json", err)
+		return
+	}
+	
 
 	var kleuren map[string]string
 	json.Unmarshal(file, &kleuren)
@@ -18,7 +26,8 @@ func main() {
 	fmt.Scanln(&input)
 
 	// Haal spaties en hoofdletters weg
-	input = strings.TrimSpace(strings.ToLower(input))
+	input = strings.ToLower(input)
+	input = strings.TrimSpace(input)
 
 	tekst, gevonden := kleuren[input]
 	if gevonden {
